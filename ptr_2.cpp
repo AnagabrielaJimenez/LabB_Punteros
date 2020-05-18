@@ -4,40 +4,43 @@
 
 using namespace std;
 
-void swap(int* punt, int t, int i){
-    int aux;
-    aux=*(punt+i);
-    *(punt+i)=*(punt+t-1);
-    *(punt+t-1)=aux;
-}
-
-void invertirR(int *punt, int t, int i){
-    if(i<=t){
-        swap(punt,t,i);
-        invertirR(punt, --t, ++i);
+void imprimir(int *punt, int len){
+    for(int i=0; i<len; i++){
+        cout<<*punt++;
     }
 }
 
-int* invertirI(int *punt, int t){
-    for(int i=0; i<t/2; i++){
-        swap(punt, (t-i), i);
+void swap(int &a, int &b){
+    a=a^b;
+    b=b^a;
+    a=a^b;
+
+}
+
+void invertir_R(int *punt, int len, int i){
+    if(i<(len+1)){
+        int *pont;
+        pont=punt+len-1;
+        swap(*punt,*pont);
+        punt=punt+1;
+        invertir_R(punt, len-2, ++i);
     }
-    return punt;
+}
+
+void invertir_I(int *punt, int len){
+    int *pont;
+    pont=punt+len-1;
+    for(int i=0; i<len/2; i++){
+        swap(*punt++,*pont--);
+    } 
 }
 
 int main(){
     int arr[]={1,2,3,4,5,6,7,8,9}, n=9;
-    int *ptr;
-    ptr=arr;
-    ptr=invertirI(ptr,n);
-    cout<<"Arreglo invertido iterativamente: ";
-    for (int i=0; i<n; i++){
-        cout<<*(ptr++);
-    }
+    int *ptr=arr;
+    invertir_I(ptr, 9);
+    imprimir(ptr, 9);  
     cout<<endl;
-    invertirR(ptr,n,0);
-    cout<<"Arreglo invertido recursivamente: ";
-    for(int i=0; i<n; i++){
-        cout<<*(ptr++);
-    }
+    invertir_R(ptr, 9, 0);    
+    imprimir(ptr, 9);
 }

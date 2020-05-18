@@ -7,25 +7,27 @@ using namespace std;
 
 int suma_R(int *punt, int tam){
     if(tam==1){
-        return *(punt);
+        return *punt;
     }
     else{
-        return *(punt+tam-1) + suma_R(punt, --tam);
+        int *pont;
+        pont=punt+tam-1;
+        return *pont + suma_R(punt, --tam);
     }
 }
 
 int suma_I(int *punt, int tam){
     int sum=0;
     for(int i=0; i<tam; i++){
-        sum+=*(punt++);
+        sum+=*punt;
+        punt++;
     }
     return sum;
 }
 
 int main(){
-    int arr[9]={1,2,3,4,5,6,7,8,9}, n=9;
-    int *ptr;
-    ptr=arr;
-    cout<<"Suma iterativa: "<<suma_I(ptr,n)<<endl;
-    cout<<"Suma recursiva: "<<suma_R(ptr,n)<<endl;
+    int arr[9]={1,2,3,4,5,6,7,8,9};
+    int *ptr=arr;
+    cout<<"Suma iterativa: "<<suma_I(ptr,9)<<endl;
+    cout<<"Suma recursiva: "<<suma_R(ptr,9)<<endl;
 }

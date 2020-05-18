@@ -4,30 +4,31 @@
 
 using namespace std;
 
+void imprimir(char *punt, int len){
+    for(int i=0; i<len; i++){
+        cout<<*punt++;
+    }
+}
+
 int tam_C(char *punt){
     int tam=0, i=0;
-    while(*(punt+i)!='\0'){
+    while(*punt++!='\0'){
         tam++;
-        i++;
     }
     return tam;
 }
 
 void copiar_C(char *punt1, char *punt2){
-    for(int i=0; i<tam_C(punt1); i++){
-        *(punt2+i)=*(punt1+i);
+    while(*punt1!='\0'){
+        *punt2++=*punt1++;
     }
 }
 
 int main(){
-    char a[]="Cadenas y ArreglosB";
-    char *ptra;
-    ptra=a;
+    char a[]="Cadenas y Arreglos";
+    char *ptra=a;
     char b[tam_C(ptra)];
-    char *ptrb;
-    ptrb=b;
+    char *ptrb=b;
     copiar_C(ptra,ptrb);
-    for(int i=0; i<30; i++){
-        cout<<*(ptrb++);
-    }
+    imprimir(ptrb,tam_C(ptra));
 }
